@@ -16,6 +16,7 @@ function DnD(canvas, interactor) {
 	}
 	
 	this.drag = function(evt){
+    
     this.xEnd = getMousePosition(canvas,evt).x;
     this.yEnd = getMousePosition(canvas,evt).y;
 	}
