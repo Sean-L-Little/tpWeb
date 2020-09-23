@@ -12,6 +12,21 @@ function Pencil(ctx, drawing, canvas) {
 	new DnD(canvas, this);
 
 	// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
+
+	this.onInteractionStart = function(dnd){
+		if(this.currEditingMode===editingMode.line){
+			
+		}
+	}.bind(this)
+
+	this.onInteractionUpdate = function(dnd){
+		this.currentShape=Line(dnd.xStart,dnd.yStart,dnd.xEnd,dnd.xEnd,this.currLineWidth,this.currColour);
+	}.bind(this)
+
+
+	this.onInteractionEnd = function(dnd){
+		this.currentShape=Line(dnd.xStart,dnd.yStart,dnd.xEnd,dnd.xEnd,this.currLineWidth,this.currColour);
+	}
 };
 
 
