@@ -14,7 +14,7 @@ function Pencil(ctx, drawing, canvas) {
 	document.getElementById("spinnerWidth").onchange = function(){ this.currLineWidth = document.getElementById("spinnerWidth").value;}.bind(this)
 	document.getElementById("colour").onchange = function() {this.currColour = document.getElementById("colour").value;}.bind(this)
 
-	console.log("Line Width: "+ this.currLineWidth);
+
 	new DnD(canvas, this);
 
 	// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
@@ -22,7 +22,7 @@ function Pencil(ctx, drawing, canvas) {
 	this.onInteractionStart = function(dnd){
 		if(this.currEditingMode===editingMode.line){
 			this.currentShape= new Line(dnd.xStart,dnd.yStart,dnd.xStart,dnd.yStart,this.currLineWidth,this.currColour);
-			console.log("Line Width Inter Start: "+ this.currLineWidth);
+
 		}else if(this.currEditingMode===editingMode.rect){
 			this.currentShape= new Rectangle(dnd.xStart,dnd.yStart,0,0,this.currLineWidth,this.currColour);
 		}
@@ -51,12 +51,34 @@ function Pencil(ctx, drawing, canvas) {
 
 
 	this.onInteractionEnd = function(dnd){
-			console.log("Current Shape Thickness: "+this.currentShape.thickness);
+
+			
 			drawing.addForm(this.currentShape);
-			drawing.paint(ctx);
+
 			drawing.updateShapeList();
+
+			buttons = document.getElementsByTagName('button');
+			
+			for (var i = 0; i < buttons.length; i++) {
+				(function(index) {
+					buttons[index].addEventListener("click", function() {
+
+						drawing.paint(ctx);
+						drawing.removeShapeFromList(index);
+						drawing.removeForm(index);
+						drawing.paint(ctx);
+						console.log("remove index: "+index);
+					})
+				})(i);
+				
+			}
+			drawing.paint(ctx);
+
+
 			
 	}.bind(this)
+
+
 };
 
 

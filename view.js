@@ -1,4 +1,3 @@
-shapeList = []
 Rectangle.prototype.paint = function(ctx) {
     //TODO Manager color
     ctx.strokeStyle = this.color;
@@ -31,21 +30,30 @@ Rectangle.prototype.paint = function(ctx) {
       eltDuTableau.paint(ctx);
     });
   };
-  
+
+  Drawing.prototype.removeShapeFromList = function(index){
+    document.getElementById("bb"+index).remove();
+    console.log("removeShapeFromList index: "+index);
+  }
 
   Drawing.prototype.updateShapeList = function(){
-    let htmlContent="";
-    document.getElementById("shapeList").innerHTML="";
-    
-    this.getForms().forEach(function (eltDuTableau){
 
-      console.log("Constructor Name: " + eltDuTableau.constructor.name);
-      if(eltDuTableau.constructor.name === Shape){
-        document.getElementById("shapeList").insertAdjacentHTML('beforeend',"<li>Line</li>");
-               
-      }else if(eltDuTableau.constructor.name === Rectangle){
-        document.getElementById("shapeList").insertAdjacentHTML('beforeend',"<li>Rectangle</li>");
-        
+    document.getElementById("shapeList").innerHTML="";
+
+    console.log("forms length: "+this.getForms().length);
+    
+    for(i=0;i<this.getForms().length;i++){
+      
+      eltDuTableau = this.getForms()[i];
+
+      shapeColor = eltDuTableau.color.toString();
+
+      if(typeof eltDuTableau.height != "undefined"){ //Je sais que c'est un peu sale de faire comme ça, en effet.
+        document.getElementById("shapeList").insertAdjacentHTML('beforeend','<span id="bb'+i+'"><button type="button"  class="btn btn-default"  style="background-color: '+shapeColor+'"><span class="glyphicon glyphicon-remove-sign"></span></button> <li><b>Rectangle</b></li></span>');
+      }else {
+        document.getElementById("shapeList").insertAdjacentHTML('beforeend','<span id="bb'+i+'"><button type="button" class="btn btn-default"  style="background-color: '+shapeColor+'"><span class="glyphicon glyphicon-remove-sign"></span></button> <li><b>Line</b></li></span>');
       }
-    });
+    
+    }
+    
   };

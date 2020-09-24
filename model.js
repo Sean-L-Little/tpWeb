@@ -10,6 +10,11 @@ function Drawing(){
     this.getForms = function(){
         return this.shapes;
     }.bind(this)
+    this.removeForm = function(index){
+        console.log("shapeLengthBefore" + this.shapes.length);
+        this.shapes.splice(index, 1);
+        console.log("shapeLengthAfter" + this.shapes.length);
+    }
     
 };
 

@@ -20,9 +20,7 @@ function DnD(canvas, interactor) {
 		this.yStart = getMousePosition(canvas,evt).y;
 		
 		interactor.onInteractionStart(this);
-
-		console.log("Click X pos: "+this.xStart);
-		console.log("Click Y pos: "+this.yStart);
+		console.log("Click Position X:"+this.xStart+"  Y:"+this.yStart);
 		
 	}.bind(this)
 	
@@ -34,9 +32,6 @@ function DnD(canvas, interactor) {
 			this.yEnd = getMousePosition(canvas,evt).y;
 
 			interactor.onInteractionUpdate(this);
-
-			console.log("Drag X pos: "+this.xEnd);
-			console.log("Drag Y pos: "+this.yEnd);
 
 		}
 		
@@ -52,8 +47,7 @@ function DnD(canvas, interactor) {
 			
 			interactor.onInteractionEnd(this);
 
-		console.log("Drop X pos: "+this.xEnd);
-		console.log("Drop Y pos: "+this.yEnd);
+		console.log("Drop Position X:"+this.xEnd+"  Y:"+this.yEnd);
 
 		}
 
