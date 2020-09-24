@@ -3,19 +3,28 @@
 // N'oubliez pas l'héritage !
 
 function Drawing(){
-    this.shapes = Array;
+    this.shapes = [];
+    this.addForm = function(form){
+        this.shapes.push(form);
+    }.bind(this)
+    this.getForms = function(){
+        return this.shapes;
+    }.bind(this)
+    
 };
 
 function Shape(thickness,color){
 
     this.thickness=thickness;
 
-    this.color=color;
+    console.log("Thickness Shape: " + thickness);
 
+    this.color=color;
+    console.log("color Shape: " + color);
 };
 
 function Line(xStart,yStart,xEnd,yEnd,thickness,color){
-    Shape.call(thickness,color);
+    Shape.call(this,thickness,color);
 
     this.xStart=xStart;
     this.yStart=yStart;
@@ -23,17 +32,10 @@ function Line(xStart,yStart,xEnd,yEnd,thickness,color){
     this.xEnd=xEnd;
     this.yEnd=yEnd;
 
-    this.getEndX = function(){
-        return xEnd;
-    }.bind(this)
-
-    this.getEndY = function(){
-        return yEnd;
-    }.bind(this)
-};
+}Line.prototype = new Shape();
 
 function Rectangle(xStart,yStart,width,height,thickness,color){
-    Shape.call(thickness,color);
+    Shape.call(this,thickness,color);
 
     this.xStart=xStart;
     this.yStart=yStart;
@@ -41,12 +43,4 @@ function Rectangle(xStart,yStart,width,height,thickness,color){
     this.width=width;
     this.height=height;
 
-    this.getEndX = function(){
-        return xStart+width;
-    }.bind(this)
-
-    this.getEndY = function(){
-        return yStart+height;
-    }.bind(this)
-
-};
+}Rectangle.prototype = new Shape();

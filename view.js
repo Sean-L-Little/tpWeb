@@ -1,24 +1,26 @@
+shapeList = []
 Rectangle.prototype.paint = function(ctx) {
     //TODO Manager color
-    Shape.prototype.paint.call(ctx,this);
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = this.thickness;
+
     ctx.beginPath();
-    ctx.rect(this.xStart, this.yStart, this.getEndX(), this.getEndY());
+    ctx.rect(this.xStart, this.yStart, this.width, this.height);
     ctx.stroke();
   };
   
   Line.prototype.paint = function(ctx) {
     //TODO Manager color
-    Shape.prototype.paint.call(ctx,this);
+
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = this.thickness;
     ctx.beginPath();
     ctx.moveTo(this.xStart, this.yStart);
-    ctx.lineTo(this.getEndY(), this.getEndY());
+    ctx.lineTo(this.xEnd, this.yEnd);
     ctx.stroke();
   };
 
-  Shape.prototype.paint = function(ctx){
-      ctx.lineWidth = this.thickness;
-      ctx.strokeStyle = this.color;
-  }
+
   
   Drawing.prototype.paint = function(ctx ) {
     //console.log(this.getForms());
@@ -30,3 +32,20 @@ Rectangle.prototype.paint = function(ctx) {
     });
   };
   
+
+  Drawing.prototype.updateShapeList = function(){
+    let htmlContent="";
+    document.getElementById("shapeList").innerHTML="";
+    
+    this.getForms().forEach(function (eltDuTableau){
+
+      console.log("Constructor Name: " + eltDuTableau.constructor.name);
+      if(eltDuTableau.constructor.name === Shape){
+        document.getElementById("shapeList").insertAdjacentHTML('beforeend',"<li>Line</li>");
+               
+      }else if(eltDuTableau.constructor.name === Rectangle){
+        document.getElementById("shapeList").insertAdjacentHTML('beforeend',"<li>Rectangle</li>");
+        
+      }
+    });
+  };
